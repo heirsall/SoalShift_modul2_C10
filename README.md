@@ -5,89 +5,42 @@ SoalShift modul 2 Sistem Operasi kelompok C10.
  Elen mempunyai pekerjaan pada studio sebagai fotografer. Suatu hari ada seorang klien yang bernama Kusuma yang meminta untuk mengubah nama file yang memiliki ekstensi .png menjadi “[namafile]_grey.png”. Karena jumlah file yang diberikan Kusuma tidak manusiawi, maka Elen meminta bantuan kalian untuk membuat suatu program C yang dapat mengubah nama secara otomatis dan diletakkan pada direktori /home/[user]/modul2/gambar.
 Catatan : Tidak boleh menggunakan crontab.
 
+Pada Nomor ini yang perlu dilakukan pertama perlu untuk membuka direktory
 
-``#include <sys/types.h>
-#include <sys/stat.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <fcntl.h>
-#include <errno.h>
-#include <unistd.h>
-#include <syslog.h>
-#include <string.h>
-#include <dirent.h>
+`folder = opendir("/home/zahrul/modul2/");`
 
-int main() {
-  pid_t pid, sid;
-
-  pid = fork();
-
-  if (pid < 0) {
-    exit(EXIT_FAILURE);
-  }
-
-  if (pid > 0) {
-    exit(EXIT_SUCCESS);
-  }
-
-  umask(0);
-
-  sid = setsid();
-
-  if (sid < 0) {
-    exit(EXIT_FAILURE);
-  }
-
-  if ((chdir("/home/zahrul/modul2/")) < 0) {
-    exit(EXIT_FAILURE);
-  }
-
-  close(STDIN_FILENO);
-  close(STDOUT_FILENO);
-  close(STDERR_FILENO);
-
-  while(1) {
-   DIR *folder;
-    struct dirent *dir;
-    folder = opendir("/home/zahrul/modul2/");
-
-    if (folder)
+ Selanjutnya 
+ ``if (folder)
     {
-        while ((dir = readdir(folder)) != NULL)
+        while ((dir = readdir(folder)) != NULL) //Untuk membaca direktori
         {
-	    int len = (int) strlen(dir->d_name);
+	    int len = (int) strlen(dir->d_name); //Untuk mendapatkan panjang char setiap nama file
 
 	    char *name = dir->d_name;
 
-	   	if(name[len-1] == 'g')
-        	if(name[len-2] == 'n' )
+	   	if(name[len-1] == 'g')	//menyeleksi pada 4 char terakhir apakah mengandung .png
+        	if(name[len-2] == 'n' ) 
 		if(name[len-3] == 'p' )
 		if(name[len-4] == '.'){
 	    	
 		char nFile[1024];
 
-		strcpy(nFile, "/home/zahrul/modul2/gambar/");
+		strcpy(nFile, "/home/zahrul/modul2/gambar/"); //untuk mengkopi string dimasukan ke variabel nFile
 
-		strcat(nFile, name);
+		strcat(nFile, name); //menyambungkan string isi nFile dengan namafile
 		
 		len = (int)strlen(nFile);
 
-		nFile[len-4] = '\0';
+		nFile[len-4] = '\0'; //menghapus string .png pada file
 		
-		strcat(nFile, "_grey.png");
+		strcat(nFile, "_grey.png"); //menyambungkan isi string nFile dengan _grey.png
 
 						if(fork()==0){
 
-		 execlp("mv", "mv",name,nFile,(char*) NULL); 
+		 execlp("mv", "mv",name,nFile,(char*) NULL); //melakukan rename dan move 
 
 
 		}
 	    }
-        }
-        closedir(folder);
- ` }
- 	sleep(5);
-  }
-  
-  exit(EXIT_SUCCESS);
-}``
+}
+    ``
