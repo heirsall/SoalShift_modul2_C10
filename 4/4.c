@@ -9,7 +9,6 @@
 #include <string.h>
 
 #include <time.h>
-//template from modul 2 daemon
 int main() {
   pid_t pid, sid;
 
