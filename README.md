@@ -10,7 +10,11 @@ Pada Nomor ini yang perlu dilakukan pertama perlu untuk membuka direktory
 `folder = opendir("/home/zahrul/modul2/");`
 
  Selanjutnya 
- ``if (folder)
+ ``
+ 
+ 
+ 
+ ````if (folder)
     {
         while ((dir = readdir(folder)) != NULL) //Untuk membaca direktori
         {
