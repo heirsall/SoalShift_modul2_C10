@@ -44,26 +44,24 @@ int main() {
     char namafile[99999];    
     struct stat fstatus;
  
-    time_t now;
-    struct tm *now_tm;
-    struct tm *now_tm2;
+    time_t this;
+    struct tm *this_tm;
+    struct tm *this_tm2;
     int jam,detik,menit;
     int jam1,detik1,menit1;
-    
-	
-    now = time(NULL);
-    now_tm = localtime(&now);
-    detik = now_tm->tm_sec;
-    menit = now_tm->tm_min;
-    jam = now_tm->tm_hour;
+    this = time(NULL);
+    this_tm = localtime(&this);
+    detik = this_tm->tm_sec;
+    menit = this_tm->tm_min;
+    jam = this_tm->tm_hour;
 
     stat("makan_enak.txt",&fstatus);
 
-    now_tm2 = localtime(&fstatus.st_atim.tv_sec);
+    this_tm2 = localtime(&fstatus.st_atim.tv_sec);
     
-    detik1 = now_tm2->tm_sec;
-    menit1 = now_tm2->tm_min;
-    jam1   = now_tm2->tm_hour;
+    detik1 = this_tm2->tm_sec;
+    menit1 = this_tm2->tm_min;
+    jam1   = this_tm2->tm_hour;
 
     if(jam1==jam){
         if(menit==menit1){
