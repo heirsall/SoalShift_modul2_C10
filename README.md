@@ -73,13 +73,13 @@ int main()
 {
     pid_t child_id1;
     int status;
-    int inipipe[4]; 	------------------------->untuk pipe yang nanti diperlukan
+    int inipipe[4]; 	---------------->untuk pipe yang nanti diperlukan
     char hasil[1024];
 
-    child_id1 = fork();	------------------------->melakukan fork pertama
+    child_id1 = fork();	-------------->melakukan fork pertama
 
     if(child_id1 == 0){
-      execl("/usr/bin/unzip","unzip", "campur2.zip", NULL); ---------------->untuk unzip
+      execl("/usr/bin/unzip","unzip", "campur2.zip", NULL); ------>untuk unzip
     }else{
 
 
