@@ -45,6 +45,40 @@ if (folder)
 	    }
 	    }
 ``
+# 2
+Karena ingin menghapus kenangan elin.ku yang ada pada folder hatiku, maka dibuat program berikut:
+
+1. Membaca tempat elen.ku ini
+```
+    char *tempat = "/home/tieria21/hatiku/elen.ku";
+```
+2. Lalu agar dibaca pid daemon nya maka menggunakan chown
+```
+stat(tempat, &elen);
+
+    struct stat elen;
+    struct x *a;
+    struct y *b;
+
+    a = getpwuid(elen.st_uid);
+    b = getgrgid(elen.st_gid);
+```
+3. Untuk permissionnya dibaca
+```
+char perm[]="0777";
+    int c;
+
+    c = strtol(perm,0,8);    
+    chmod(tempat, c);
+```
+4. Lalu menghapus dengan format www-data nya
+```
+if(strcmp(own->pw_name, "www-data")==0 && strcmp(grp->gr_name, "www-data")==0) 
+        remove(tempat);
+
+    sleep(3);
+```
+
 # 3
 Diberikan file campur2.zip. Di dalam file tersebut terdapat folder “campur2”. 
 Buatlah program C yang dapat :
@@ -234,4 +268,64 @@ int main() {
 }
 
 ``
+# 5
 
+```
+//Soal 5 Bagian A
+  time_t t = time(NULL);
+  struct tm tm = *localtime(&t);
+
+  int a = 1;
+  DIR *sip;
+
+  char waktu[30];
+  char folder[50]="/home/tieria21/modul2/log/";
+  snprintf(waktu, sizeof waktu, "%02d:%02d:%04d-%02d:%02d",tm.tm_mday,tm.tm_mon+1,tm.tm_year+1900,tm.tm_hour,tm.tm_min);
+  strcat(folder,waktu);
+
+  if(fork()==0){
+    execlp("mkdir","mkdir","-p",folder,NULL);
+  }
+  
+  else{
+    while(wait(&status)>0);
+  }
+
+  while(1) {
+    // main program here
+    sip = opendir(folder);
+
+    if(a>=2 || !sip){
+    a = 1;
+    t = time(NULL);
+    tm = *localtime(&t);
+    
+    memset(folder,0,sizeof(folder));
+    strcpy(folder, "/home/tieria21/modul2/log/");
+    snprintf(waktu, sizeof waktu, "%02d:%02d:%04d-%02d:%02d",tm.tm_mday,tm.tm_mon+1,tm.tm_year+1900,tm.tm_hour,tm.tm_min);
+    strcat(folder,waktu);
+    
+    if(!fork())
+    {
+      execlp("mkdir","mkdir","-p",folder,NULL);
+    }
+    else
+    {
+      while(wait(&status)>0);
+    }  
+  }
+  
+    if(fork()==0){
+      char log[30];
+      snprintf(log, sizeof log, "/log%d.log", a);
+      strcat(folder, log);
+      execlp("cp", "cp", "/var/log/syslog", folder, NULL);
+    }
+    closedir(sip);
+    
+    a++;
+
+    sleep(60);
+  } exit(EXIT_SUCCESS);
+}
+```
