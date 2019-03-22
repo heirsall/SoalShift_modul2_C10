@@ -9,22 +9,26 @@ Pada pertama adalah membuat Program deamon agar program dapat berjalan berulang-
 
 Setelah program daemon terbuat kita mulai ke programnya
 
-``DIR *folder;
+    `` 
+	DIR *folder;
     struct dirent *dir;
     folder = opendir("/home/zahrul/modul2/");
-``
+    ``
+    
 Pada Syntaq diatas pertama adalah inisialisasi `DIR *folder`  yang digunakan untuk membuka direktori
 dan `struct dirent *dir` untuk nanti digunakan membaca direktori
 
-``
-  if (folder)
-    {
-        while ((dir = readdir(folder)) != NULL)
-        {
-	    int len = (int) strlen(dir->d_name);
+		if (folder)
+   			 {
+        		while ((dir = readdir(folder)) != NULL)
+        		{
+			    int len = (int) strlen(dir->d_name);
+				char *name = dir->d_name;
+			
+			
 
-	    char *name = dir->d_name;
-``
+
+
 Pada kode diatas adalah mengcedek folder dan perulangan membaca isi dari folder
 ` int len = (int) strlen(dir->d_name);` Digunakan untuk mencari panjang string dari nama file 
 `  	if(name[len-1] == 'g')
