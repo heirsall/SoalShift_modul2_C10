@@ -101,29 +101,30 @@ Pastikan file daftar.txt dapat diakses dari text editor
 
 ``
 
-#include <stdlib.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <errno.h>
-#include <stdio.h>
-#include <sys/wait.h>
-#include <string.h>
-#include <dirent.h>
-#include <unistd.h>
+		#include <stdlib.h>
+		#include <sys/types.h>
+		#include <sys/stat.h>
+		#include <fcntl.h>
+		#include <errno.h>
+		#include <stdio.h>
+		#include <sys/wait.h>
+		#include <string.h>
+		#include <dirent.h>
+		#include <unistd.h>
 
-int main()
-{
+	int main()
+	{
     pid_t child_id1;
     int status;
-    int inipipe[4]; 	---------------->untuk pipe yang nanti diperlukan
+    int inipipe[4]; 	------->untuk pipe yang nanti diperlukan
     char hasil[1024];
 
     child_id1 = fork();	-------------->melakukan fork pertama
 
     if(child_id1 == 0){
       execl("/usr/bin/unzip","unzip", "campur2.zip", NULL); ------>untuk unzip
-    }else{
+    }
+    else{
 
 
 	
@@ -142,9 +143,9 @@ int main()
           close(inipipe[2]);
           close(inipipe[3]);
 
-          dup2(inipipe[1], STDOUT_FILENO); ---------> menyimpan hasil ls 
+          dup2(inipipe[1], STDOUT_FILENO); -----> menyimpan hasil ls 
           close(inipipe[1]); 
-      execlp("ls","ls","/home/zahrul/praktikum2/baru/campur2",(char*) NULL); -------> Melakukan ls
+      execlp("ls","ls","/home/zahrul/praktikum2/baru/campur2",(char*) NULL); --> Melakukan ls
       
         }
 		else{
@@ -163,7 +164,7 @@ int main()
 	              close(inipipe[2]);
 	              dup2(inipipe[3],STDOUT_FILENO); --------------> untuk menyimpan hasil grep
 	              close(inipipe[3]);
-		 execlp("grep", "grep",".txt$",(char*) NULL);-------> Melakukan grep yang menyeleksi file beresktensi .txt 
+		 execlp("grep", "grep",".txt$",(char*) NULL);---> Melakukan grep yang menyeleksi file beresktensi .txt 
              
             }else{
 
@@ -180,15 +181,27 @@ int main()
              printf("Berikut Berupa File berformat .txt :\n%.*s\n",cetak,hasil); ----> untuk mencetak hasil ls grep
 	
               fclose(file);
-            }
+           	 }
             
-        }
-    }
-}
-
-
-
+        	}
+	    }
+	}
 ``
+
+
+
+	`execl("/usr/bin/unzip","unzip", "campur2.zip", NULL);`
+Untuk Unzip
+
+
+	``execlp("ls","ls","/home/zahrul/praktikum2/baru/campur2",(char*) NULL);``
+
+Untuk ls
+
+	``execlp("grep",".txt$",(char*) NULL);``
+
+Untuk melakukan grep,yaitu menyaring yang berformat .txt
+
 # 4
 Dalam direktori /home/[user]/Documents/makanan terdapat file makan_enak.txt yang berisikan daftar makanan terkenal di Surabaya. Elen sedang melakukan diet dan seringkali tergiur untuk membaca isi makan_enak.txt karena ngidam makanan enak. Sebagai teman yang baik, Anda membantu Elen dengan membuat program C yang berjalan setiap 5 detik untuk memeriksa apakah file makan_enak.txt pernah dibuka setidaknya 30 detik yang lalu (rentang 0 - 30 detik).
 Jika file itu pernah dibuka, program Anda akan membuat 1 file makan_sehat#.txt di direktori /home/[user]/Documents/makanan dengan '#' berisi bilangan bulat dari 1 sampai tak hingga untuk mengingatkan Elen agar berdiet.
