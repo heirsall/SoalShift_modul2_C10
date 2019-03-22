@@ -5,46 +5,51 @@ SoalShift modul 2 Sistem Operasi kelompok C10.
  Elen mempunyai pekerjaan pada studio sebagai fotografer. Suatu hari ada seorang klien yang bernama Kusuma yang meminta untuk mengubah nama file yang memiliki ekstensi .png menjadi “[namafile]_grey.png”. Karena jumlah file yang diberikan Kusuma tidak manusiawi, maka Elen meminta bantuan kalian untuk membuat suatu program C yang dapat mengubah nama secara otomatis dan diletakkan pada direktori /home/[user]/modul2/gambar.
 Catatan : Tidak boleh menggunakan crontab.
 
-Pada Nomor ini yang perlu dilakukan pertama perlu untuk membuka direktory
+Pada pertama adalah membuat Program deamon agar program dapat berjalan berulang-ulang
 
-`folder = opendir("/home/zahrul/modul2/");`
+Setelah program daemon terbuat kita mulai ke programnya
 
- Selanjutnya 
+``DIR *folder;
+    struct dirent *dir;
+    folder = opendir("/home/zahrul/modul2/");
 ``
-if (folder)
+Pada Syntaq diatas pertama adalah inisialisasi `DIR *folder`  yang digunakan untuk membuka direktori
+dan `struct dirent *dir` untuk nanti digunakan membaca direktori
+
+``
+  if (folder)
     {
-        while ((dir = readdir(folder)) != NULL) //Untuk membaca direktori
+        while ((dir = readdir(folder)) != NULL)
         {
-	    int len = (int) strlen(dir->d_name); //Untuk mendapatkan panjang char setiap nama file
+	    int len = (int) strlen(dir->d_name);
 
 	    char *name = dir->d_name;
-
-	   	if(name[len-1] == 'g')	//menyeleksi pada 4 char terakhir apakah mengandung .png
-        	if(name[len-2] == 'n' ) 
-		if(name[len-3] == 'p' )
-		if(name[len-4] == '.'){
-	    	
-		char nFile[1024];
-
-		strcpy(nFile, "/home/zahrul/modul2/gambar/"); //untuk mengkopi string dimasukan ke variabel nFile
-
-		strcat(nFile, name); //menyambungkan string isi nFile dengan namafile
-		
-		len = (int)strlen(nFile);
-
-		nFile[len-4] = '\0'; //menghapus string .png pada file
-		
-		strcat(nFile, "_grey.png"); //menyambungkan isi string nFile dengan _grey.png
-
-						if(fork()==0){
-
-		 execlp("mv", "mv",name,nFile,(char*) NULL); //melakukan rename dan move 
-
-
-		}
-	    }
-	    }
 ``
+Pada kode diatas adalah mengcedek folder dan perulangan membaca isi dari folder
+` int len = (int) strlen(dir->d_name);` Digunakan untuk mencari panjang string dari nama file 
+`  	if(name[len-1] == 'g')
+        	if(name[len-2] == 'n' )
+		if(name[len-3] == 'p' )
+		if(name[len-4] == '.'){`
+Diatas adalah untuk mengecek apakah file berformat `.png`
+`char nFile[1024];` Inisialisasi char untuk nama file nanti
+
+`strcpy(nFile, "/home/zahrul/modul2/gambar/");` 
+
+Mengisi nfile dengean string "/home/zahrul/modul2/gambar/" 
+
+`strcat(nFile, name);` Menyambung nfile dengan nama file asli
+sehingga menjadi "/home/zahrul/modul2/gambar/*namafile.png*"
+
+`len = (int)strlen(nFile);` Menghitung panjang string dari nFile
+`nFile[len-4] = '\0';` Menghapus char pada indeks panjang karakter - 4 dan lanjutannya 
+			Sehingga menjadi "/home/zahrul/modul2/gambar/*namafile*"
+`strcat(nFile, "_grey.png");` Menyambung nFile dengan _grey.png sehingga menjadi
+				"/home/zahrul/modul2/gambar/*namafile_grey.png*"
+ `execlp("mv", "mv",name,nFile,(char*) NULL); ` Untuk meng mv file ke lokasi tujuan dengan nama baru
+
+
+
 # 2
 Karena ingin menghapus kenangan elin.ku yang ada pada folder hatiku, maka dibuat program berikut:
 
