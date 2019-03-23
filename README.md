@@ -55,13 +55,13 @@ sehingga menjadi "/home/zahrul/modul2/gambar/*namafile.png*"
 
 
 # 2
-Karena ingin menghapus kenangan elin.ku yang ada pada folder hatiku, maka dibuat program berikut:
+Soal 2 diminta untuk menghapus file <i>elen.ku</i> yang berada di direktori <i>hatiku</i> dengan menjalankan proses Daemon, namun untuk mengahapus file <i>elen.ku</i> terdapat sebuah masalah untuk akses permissionnya sehingga dibuat akses baru dengan kode permission "0777".
 
 1. Membaca tempat elen.ku ini
 ```
     char *tempat = "/home/tieria21/hatiku/elen.ku";
 ```
-2. Lalu agar dibaca pid daemon nya maka menggunakan chown
+2. Membuat variabel deklrasi file dan PID nya
 ```
 stat(tempat, &elen);
 
@@ -87,6 +87,11 @@ if(strcmp(own->pw_name, "www-data")==0 && strcmp(grp->gr_name, "www-data")==0)
 
     sleep(3);
 ```
+5. Untuk menjalan kan programmnya setelah di compile
+```
+sudo chown www-data:www-data /home/[user]/hatiku/elen.ku
+```
+Hasilnya file <i>elen.ku</i> akan terhapus
 
 # 3
 Diberikan file campur2.zip. Di dalam file tersebut terdapat folder “campur2”. 
@@ -291,12 +296,15 @@ int main() {
 
 ``
 # 5
+Di soal 5 kita diminta untuk menyimpan file log yang berasal dari "/var/log/syslog" dalam sebuah folder yang bernamakan waktu simpan di setiap menitnya sampai berjumlah 30 dalam 1 folder lalu terus berlanjut membuat folder baru berisikan file log juga. Lalu juga kita diminta untuk membuat program untuk menghentika jalannya proses membuat file log tersebut.
 
+1. Mendeklarasikan waktu dan akses mengambil data waktu dari sistem
 ```
-//Soal 5 Bagian A
   time_t t = time(NULL);
   struct tm tm = *localtime(&t);
-
+```
+2. Untuk membuat folder yang bernamakan sesuai dengan waktu dari sistem, dan juga mengisikan data nama waktu dengan folder
+```
   int a = 1;
   DIR *sip;
 
@@ -304,15 +312,19 @@ int main() {
   char folder[50]="/home/tieria21/modul2/log/";
   snprintf(waktu, sizeof waktu, "%02d:%02d:%04d-%02d:%02d",tm.tm_mday,tm.tm_mon+1,tm.tm_year+1900,tm.tm_hour,tm.tm_min);
   strcat(folder,waktu);
-
+```
+3. Fork untuk membuat proses baru membuat folder, dan program parent melanjutkan proses selanjutnya
+```
   if(fork()==0){
     execlp("mkdir","mkdir","-p",folder,NULL);
   }
-  
   else{
     while(wait(&status)>0);
   }
+```
+4. Didalam program utama kita mendeklrasikan variabel untuk mengambil waktu dan prograrm menjalankan fungsi untuk membuat file dalam folder log dengan format waktu yang disesuaikan sebanyak 30 dalam 1 menit.
 
+```
   while(1) {
     // main program here
     sip = opendir(folder);
@@ -336,7 +348,9 @@ int main() {
       while(wait(&status)>0);
     }  
   }
-  
+```
+5. Dalam eksekusi terakhir, fork untuk membuat proses baru yang menjalankan membuat file akhir sesuai format yang diminta dan memasukkan isian dari "/var/log/syslog"
+```
     if(fork()==0){
       char log[30];
       snprintf(log, sizeof log, "/log%d.log", a);
