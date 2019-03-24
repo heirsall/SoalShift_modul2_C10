@@ -51,6 +51,8 @@ sehingga menjadi "/home/zahrul/modul2/gambar/*namafile.png*"
 `strcat(nFile, "_grey.png");` Menyambung nFile dengan _grey.png sehingga menjadi
 				"/home/zahrul/modul2/gambar/*namafile_grey.png*"
  `execlp("mv", "mv",name,nFile,(char*) NULL); ` Untuk meng mv file ke lokasi tujuan dengan nama baru
+ 
+ ![alt text](https://github.com/heirsall/SoalShift_modul2_C10/blob/master/1/1.png)
 
 
 
@@ -207,6 +209,8 @@ Untuk ls
 
 Untuk melakukan grep,yaitu menyaring yang berformat .txt
 
+ 
+ ![alt text](https://github.com/heirsall/SoalShift_modul2_C10/blob/master/3/3.png)
 # 4
 Dalam direktori /home/[user]/Documents/makanan terdapat file makan_enak.txt yang berisikan daftar makanan terkenal di Surabaya. Elen sedang melakukan diet dan seringkali tergiur untuk membaca isi makan_enak.txt karena ngidam makanan enak. Sebagai teman yang baik, Anda membantu Elen dengan membuat program C yang berjalan setiap 5 detik untuk memeriksa apakah file makan_enak.txt pernah dibuka setidaknya 30 detik yang lalu (rentang 0 - 30 detik).
 Jika file itu pernah dibuka, program Anda akan membuat 1 file makan_sehat#.txt di direktori /home/[user]/Documents/makanan dengan '#' berisi bilangan bulat dari 1 sampai tak hingga untuk mengingatkan Elen agar berdiet.
@@ -295,6 +299,8 @@ int main() {
 }
 
 ``
+ 
+ ![alt text](https://github.com/heirsall/SoalShift_modul2_C10/blob/master/4/4.png)
 # 5
 Di soal 5 kita diminta untuk menyimpan file log yang berasal dari "/var/log/syslog" dalam sebuah folder yang bernamakan waktu simpan di setiap menitnya sampai berjumlah 30 dalam 1 folder lalu terus berlanjut membuat folder baru berisikan file log juga. Lalu juga kita diminta untuk membuat program untuk menghentika jalannya proses membuat file log tersebut.
 
