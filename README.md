@@ -265,28 +265,28 @@ int main() {
   while(1) 
   {
 	struct stat title;
-    FILE *filenak;
+    FILE *filenak; 
 
-    char folder[]="makan_enak.txt";
+    char folder[]="makan_enak.txt"; ---->untuk nama file yang dicari status waktunya nanti
     
-    stat(folder, &title);
-    time_t wakses = title.st_atime; 
+    stat(folder, &title); ->>>> mendapatkan status
+    time_t wakses = title.st_atime;  --->untuk mengetahui acces time saat file dibuka
     time_t wakprogjal = time(NULL); 
-    double time = difftime(wakprogjal, wakses)
-    if(time)<=30) 
+    double time = difftime(wakprogjal, wakses) ---->mencari perbedaan waktu saat dibuka
+    if(time)<=30)  	-----> syarat waktu yaitu 30 detik
     {
 	char wakses[100];
-      sprintf(wakses, "%d.txt", nomer);
+      sprintf(wakses, "%d.txt", nomer);   ---->untuk urutan nama file
 
-      char folder2[]="makan_sehat";
+      char folder2[]="makan_sehat"; ---->membuat string makan_sehat
       
-	strcat(folder2, wakses);
+	strcat(folder2, wakses); ---->menyambung makan_sehat dengan urutanfile.txt misal makan_sehat1.txt
                   
 
-      filenak = fopen(folder2, "w"); 
+      filenak = fopen(folder2, "w"); ----->untuk membuat file yang makan_sehaturutan.txt
 
       fclose(filenak);
-      nomer=nomer+1;
+      nomer=nomer+1;  ---->menambah urutan
     }
     sleep(5);
   }
