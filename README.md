@@ -356,6 +356,8 @@ Di soal 5 kita diminta untuk menyimpan file log yang berasal dari "/var/log/sysl
   }
 ```
 5. Dalam eksekusi terakhir, fork untuk membuat proses baru yang menjalankan membuat file akhir sesuai format yang diminta dan memasukkan isian dari "/var/log/syslog"
+
+ ![alt text](https://github.com/heirsall/SoalShift_modul2_C10/blob/master/5/Screenshot from 2019-03-27 01-12-13.png)
 ```
     if(fork()==0){
       char log[30];
