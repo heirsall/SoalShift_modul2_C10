@@ -304,6 +304,8 @@ int main() {
 # 5
 Di soal 5 kita diminta untuk menyimpan file log yang berasal dari "/var/log/syslog" dalam sebuah folder yang bernamakan waktu simpan di setiap menitnya sampai berjumlah 30 dalam 1 folder lalu terus berlanjut membuat folder baru berisikan file log juga. Lalu juga kita diminta untuk membuat program untuk menghentika jalannya proses membuat file log tersebut.
 
+ ![alt text](https://github.com/heirsall/SoalShift_modul2_C10/blob/master/5/5.png)
+
 1. Mendeklarasikan waktu dan akses mengambil data waktu dari sistem
 ```
   time_t t = time(NULL);
@@ -357,7 +359,6 @@ Di soal 5 kita diminta untuk menyimpan file log yang berasal dari "/var/log/sysl
 ```
 5. Dalam eksekusi terakhir, fork untuk membuat proses baru yang menjalankan membuat file akhir sesuai format yang diminta dan memasukkan isian dari "/var/log/syslog"
 
- ![alt text](https://github.com/heirsall/SoalShift_modul2_C10/blob/master/5/Screenshot from 2019-03-27 01-12-13.png)
 ```
     if(fork()==0){
       char log[30];
